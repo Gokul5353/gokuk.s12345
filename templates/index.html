@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BridgeBack AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="card">
+  <header class="top">
+    <h1>BridgeBack AI</h1>
+    <button id="a11yBtn" class="secondary" type="button" aria-pressed="false">Accessibility: Off</button>
+  </header>
+
+  <div class="lang-row">
+    <div class="field"><label for="sourceLang">From (my language)</label><select id="sourceLang"></select></div>
+    <button id="swapBtn" class="swap" type="button" aria-label="Swap languages">&#8644;</button>
+    <div class="field"><label for="targetLang">To (their language)</label><select id="targetLang"></select></div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="translate" type="button">Translate</button>
+    <button class="tab" data-tab="voice" type="button">Voice</button>
+    <button class="tab" data-tab="readless" type="button">Readless</button>
+    <button class="tab" data-tab="pack" type="button">Trip Pack</button>
+    <button class="tab" data-tab="scan" type="button">Scanner</button>
+  </nav>
+
+  <div id="error" class="error" role="alert" hidden></div>
+
+  <section id="tab-translate" class="panel">
+    <label for="context">Situation (gives you ready phrases)</label>
+    <select id="context"></select>
+    <div id="chips" class="chips"></div>
+    <label for="inputText">Text</label>
+    <textarea id="inputText" rows="3" placeholder="What are you doing?"></textarea>
+    <div class="meta"><span id="counter">0 / 500</span></div>
+    <button id="translateBtn" class="primary" type="button">Translate</button>
+    <label>Translation</label>
+    <div id="output" class="output" aria-live="polite"></div>
+    <div id="actions" class="row" hidden>
+      <button id="speakBtn" class="secondary" type="button">Speak</button>
+      <button id="slowBtn" class="secondary" type="button">Speak slowly</button>
+      <button id="copyBtn" class="secondary" type="button">Copy</button>
+    </div>
+    <div id="backBox" class="check" hidden></div>
+  </section>
+
+  <section id="tab-voice" class="panel" hidden>
+    <p class="hint">Tap a mic and speak. It translates and speaks for the other person. Works in Chrome / Edge.</p>
+    <div class="row">
+      <button id="micMe" class="mic" type="button">I speak</button>
+      <button id="micThem" class="mic" type="button">They speak</button>
+    </div>
+    <div id="chat" class="chat"></div>
+  </section>
+
+  <section id="tab-readless" class="panel" hidden>
+    <p class="hint">No reading needed. Tap a picture, show the screen, and it speaks.</p>
+    <div id="grid" class="grid"></div>
+    <div id="bigOut" class="big" aria-live="polite"></div>
+  </section>
+
+  <section id="tab-pack" class="panel" hidden>
+    <label for="dest">Destination</label>
+    <input id="dest" type="text" placeholder="e.g. Tokyo, Japan">
+    <div class="row2">
+      <div><label for="d1">From date</label><input id="d1" type="date"></div>
+      <div><label for="d2">To date</label><input id="d2" type="date"></div>
+    </div>
+    <label>I need phrases for</label>
+    <div class="row">
+      <label class="chk"><input type="checkbox" data-need="Transport" checked> Transport</label>
+      <label class="chk"><input type="checkbox" data-need="Food" checked> Food</label>
+      <label class="chk"><input type="checkbox" data-need="Hotel" checked> Hotel</label>
+    </div>
+    <label for="itin">Saved places / itinerary</label>
+    <textarea id="itin" rows="3" placeholder="Day 1: Airport, Hotel..."></textarea>
+    <button id="genPack" class="primary" type="button">Prepare my travel pack</button>
+    <div id="packOut"></div>
+    <div id="packActions" class="row" hidden>
+      <button id="dlPack" class="secondary" type="button">Download for offline</button>
+    </div>
+    <button id="loadPack" class="secondary" type="button">Open saved pack</button>
+  </section>
+
+  <section id="tab-scan" class="panel" hidden>
+    <p class="hint">Take a photo of a menu or signboard (written in "their language"). It reads it, translates to "my language" and speaks. Needs internet.</p>
+    <input id="img" type="file" accept="image/*" capture="environment">
+    <button id="scanBtn" class="primary" type="button">Read and translate</button>
+    <label>Text found</label>
+    <div id="scanText" class="output"></div>
+    <label>Meaning</label>
+    <div id="scanOut" class="output"></div>
+  </section>
+</main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
